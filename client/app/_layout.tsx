@@ -23,6 +23,9 @@ export default function RootLayout() {
         }}
       >
         <Stack.Screen name="index" options={{ title: "" }} />
+        <Stack.Screen name="import" options={{ title: "" }} />
+        <Stack.Screen name="project-detail" options={{ title: "" }} />
+        <Stack.Screen name="wechat" options={{ title: "" }} />
       </Stack>
       <Toast />
     </Provider>
