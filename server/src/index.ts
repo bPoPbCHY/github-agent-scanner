@@ -3,6 +3,7 @@ import cors from "cors";
 import projectsRouter from "./routes/projects.js";
 import chatRouter from "./routes/chat.js";
 import wechatRouter from "./routes/wechat.js";
+import progressRouter from "./routes/progress.js";
 
 const app = express();
 const port = process.env.PORT || 9091;
@@ -23,6 +24,7 @@ app.get('/api/v1/health', (req, res) => {
 app.use('/api/v1/projects', projectsRouter);
 app.use('/api/v1/projects', chatRouter);
 app.use('/api/v1/wechat', wechatRouter);
+app.use('/api/v1/progress', progressRouter);
 
 app.listen(port, () => {
   console.log(`Server listening at http://localhost:${port}/`);

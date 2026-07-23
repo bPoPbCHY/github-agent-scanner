@@ -35,6 +35,26 @@ export const projects = pgTable(
   ]
 );
 
+export const learningProgress = pgTable(
+  "learning_progress",
+  {
+    id: serial().primaryKey(),
+    project_id: integer("project_id").notNull().references(() => projects.id, { onDelete: "cascade" }),
+    title: varchar("title", { length: 255 }).notNull(),
+    status: varchar("status", { length: 20 }).default("not_started").notNull(),
+    progress_percentage: integer("progress_percentage").default(0).notNull(),
+    notes: text("notes"),
+    started_at: timestamp("started_at", { withTimezone: true }),
+    completed_at: timestamp("completed_at", { withTimezone: true }),
+    created_at: timestamp("created_at", { withTimezone: true }).defaultNow().notNull(),
+    updated_at: timestamp("updated_at", { withTimezone: true }),
+  },
+  (table) => [
+    index("learning_progress_project_id_idx").on(table.project_id),
+    index("learning_progress_status_idx").on(table.status),
+  ]
+);
+
 export const conversations = pgTable(
   "conversations",
   {
@@ -72,3 +92,15 @@ export const insertConversationSchema = createInsertSchema(conversations).pick({
 });
 export type Conversation = typeof conversations.$inferSelect;
 export type InsertConversation = typeof insertConversationSchema.type;
+
+export const insertLearningProgressSchema = createInsertSchema(learningProgress).pick({
+  project_id: true,
+  title: true,
+  status: true,
+  progress_percentage: true,
+  notes: true,
+  started_at: true,
+  completed_at: true,
+});
+export type LearningProgress = typeof learningProgress.$inferSelect;
+export type InsertLearningProgress = typeof insertLearningProgressSchema.type;

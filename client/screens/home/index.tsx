@@ -133,6 +133,12 @@ export default function HomeScreen() {
           </View>
           <View style={styles.headerActions}>
             <Pressable
+              onPress={() => router.push('/progress')}
+              style={styles.iconButton}
+            >
+              <FontAwesome6 name="chart-line" size={20} color="#BF00FF" />
+            </Pressable>
+            <Pressable
               onPress={() => router.push('/wechat')}
               style={styles.iconButton}
             >
