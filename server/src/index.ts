@@ -11,6 +11,8 @@ const port = process.env.PORT || 9091;
 app.use(cors());
 app.use(express.json({ limit: '50mb' }));
 app.use(express.urlencoded({ limit: '50mb', extended: true }));
+// WeChat sends XML, need text parser for webhook
+app.use('/api/v1/wechat', express.text({ type: ['application/xml', 'text/xml'], limit: '1mb' }));
 
 app.get('/api/v1/health', (req, res) => {
   console.log('Health check success');
